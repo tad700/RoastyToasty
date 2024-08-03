@@ -1,14 +1,11 @@
 package com.coffee.RoastyToasty.Service.Impl;
 
-import com.coffee.RoastyToasty.Dto.CustomerDTO;
+
 import com.coffee.RoastyToasty.Entity.Customer;
 import com.coffee.RoastyToasty.Exception.ResourceNotFoundException;
-import com.coffee.RoastyToasty.Mapper.CustomerMapper;
 import com.coffee.RoastyToasty.Repository.CustomerRepository;
 import com.coffee.RoastyToasty.Service.CustomerService;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,13 +30,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Customer> getAll (){
-        List<Customer> allCustomers = customerRepository.findAll();
-        return allCustomers;
+        return customerRepository.findAll();
     }
     @Override
     public  List<Customer> getTop5ByName(){
-        List<Customer> top5ByName = customerRepository.findTop5ByOrderByNameAsc();
-        return top5ByName;
+        return customerRepository.findTop5ByOrderByNameAsc();
 
     }
 
@@ -53,9 +48,16 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setAddress(updatedCustomer.getAddress());
         customer.setPhoneNumber(updatedCustomer.getPhoneNumber());
         customer.setCreatedAt(updatedCustomer.getCreatedAt());
-        Customer updatedCustomerObj = customerRepository.save(customer);
 
-        return updatedCustomerObj;
+        return customerRepository.save(customer);
+    }
+
+    @Override
+    public void deleteCustomer(Long customerId) {
+        customerRepository.findById(customerId).orElseThrow(
+                ()->new ResourceNotFoundException("Customer is not found with id"+customerId)
+        );
+        customerRepository.deleteById(customerId);
     }
 
 
