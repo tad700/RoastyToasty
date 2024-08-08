@@ -1,11 +1,15 @@
 package com.coffee.RoastyToasty.Entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+
 import java.time.LocalDateTime;
 
-@Data
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "products")
 public class Product {
     @Id
@@ -18,7 +22,7 @@ public class Product {
 
     private Double price;
 
-    private Integer stockQuantity;
+   // private Integer stockQuantity;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 }
