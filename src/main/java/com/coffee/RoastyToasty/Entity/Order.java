@@ -16,7 +16,7 @@ public class Order {
     private Long orderId;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_Id")
     private Customer customer;
 
     private Double totalPrice;

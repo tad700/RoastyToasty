@@ -8,4 +8,8 @@ public interface OrderService {
      Order createOrder(Order order);
 
      List<Order> getAll();
+
+     Order updateOrder(Long orderId,Order updatedOrder);
+
+     void deleteOrder(Long id);
 }

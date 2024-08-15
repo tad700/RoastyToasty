@@ -3,6 +3,7 @@ package com.coffee.RoastyToasty.Service.Impl;
 import com.coffee.RoastyToasty.Entity.Customer;
 import com.coffee.RoastyToasty.Entity.Order;
 import com.coffee.RoastyToasty.Entity.Product;
+import com.coffee.RoastyToasty.Exception.ResourceNotFoundException;
 import com.coffee.RoastyToasty.Repository.CustomerRepository;
 import com.coffee.RoastyToasty.Repository.OrderRepository;
 import com.coffee.RoastyToasty.Repository.ProductRepository;
@@ -55,6 +56,24 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getAll() {
         return orderRepository.findAll();
+    }
+
+    @Override
+    public Order updateOrder(Long orderId, Order updatedOrder) {
+       Order order = orderRepository.findById(orderId).orElseThrow(()->
+               new ResourceNotFoundException("Order with id "+orderId+" not found")
+       );
+       order.setCustomer(updatedOrder.getCustomer());
+       order.setTotalPrice(updatedOrder.getTotalPrice());
+       order.setProducts(updatedOrder.getProducts());
+       order.setStatus(updatedOrder.getStatus());
+       order.setCreatedAt(updatedOrder.getCreatedAt());
+        return orderRepository.save(order);
+    }
+
+    @Override
+    public void deleteOrder(Long id) {
+        orderRepository.deleteById(id);
     }
 
 
