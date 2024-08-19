@@ -1,15 +1,16 @@
 package com.coffee.RoastyToasty.Service;
 
+import com.coffee.RoastyToasty.Dto.OrderDTO;
 import com.coffee.RoastyToasty.Entity.Order;
 
 import java.util.List;
 
 public interface OrderService {
-     Order createOrder(Order order);
+    Order createOrder(Order order);
 
-     List<Order> getAll();
+    List<OrderDTO> getAll();
 
-     Order updateOrder(Long orderId,Order updatedOrder);
+    Order updateOrder(Long orderId, Order updatedOrder);
 
-     void deleteOrder(Long id);
+    void deleteOrder(Long id);
 }

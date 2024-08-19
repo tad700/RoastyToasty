@@ -1,19 +1,18 @@
-package com.coffee.RoastyToasty.Entity;
+package com.coffee.RoastyToasty.Dto;
 
+import com.coffee.RoastyToasty.Entity.Customer;
+import com.coffee.RoastyToasty.Entity.Product;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "orders")
-public class Order {
+public class OrderDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
@@ -36,4 +35,3 @@ public class Order {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 }
-

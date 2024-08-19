@@ -1,20 +1,29 @@
 package com.coffee.RoastyToasty.Controller;
 
 
+import com.coffee.RoastyToasty.Dto.CustomerDTO;
 import com.coffee.RoastyToasty.Entity.Customer;
 import com.coffee.RoastyToasty.Service.CustomerService;
-import lombok.AllArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/customer")
-@AllArgsConstructor
+
 public class CustomerController {
 
     public CustomerService customerService;
+
+    @Autowired
+    CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+
+    }
 
     @PostMapping("add")
     public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
@@ -24,8 +33,9 @@ public class CustomerController {
     }
 
     @GetMapping("getAll")
-    public List<Customer> getAll() {
-        return customerService.getAll();
+    public ResponseEntity<List<CustomerDTO>> getAll() {
+
+        return new ResponseEntity<>(customerService.getAll(),HttpStatus.OK);
     }
 
     @GetMapping("get5ByName")

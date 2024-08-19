@@ -1,14 +1,18 @@
 package com.coffee.RoastyToasty.Service;
+
+import com.coffee.RoastyToasty.Dto.CustomerDTO;
 import com.coffee.RoastyToasty.Entity.Customer;
+
 import java.util.List;
 
 public interface CustomerService {
- Customer addCustomer(Customer customer);
- List<Customer> getAll();
+    Customer addCustomer(Customer customer);
 
- List<Customer> getTop5ByName();
+    List<CustomerDTO> getAll();
 
- Customer updateCustomer(Long customerId,Customer updatedCustomer);
+    List<Customer> getTop5ByName();
 
- void deleteCustomer(Long cusomerId);
+    Customer updateCustomer(Long customerId, Customer updatedCustomer);
+
+    void deleteCustomer(Long cusomerId);
 }

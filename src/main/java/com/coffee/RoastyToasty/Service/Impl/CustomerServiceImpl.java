@@ -1,14 +1,17 @@
 package com.coffee.RoastyToasty.Service.Impl;
 
 
+import com.coffee.RoastyToasty.Dto.CustomerDTO;
 import com.coffee.RoastyToasty.Entity.Customer;
 import com.coffee.RoastyToasty.Exception.ResourceNotFoundException;
+import com.coffee.RoastyToasty.Mapper.CustomerMapper;
 import com.coffee.RoastyToasty.Repository.CustomerRepository;
 import com.coffee.RoastyToasty.Service.CustomerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -16,7 +19,7 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Override
-   public Customer addCustomer(Customer customer){
+    public Customer addCustomer(Customer customer){
         Customer savedCustomer = new Customer(customer.getCustomerId(),
                 customer.getName(),
                 customer.getAddress(),
@@ -29,8 +32,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> getAll (){
-        return customerRepository.findAll();
+    public List<CustomerDTO> getAll (){
+         List<Customer> customers = customerRepository.findAll();
+
+         return customers.stream().map((customer) -> CustomerMapper.maptoCustomerDTO(customer)).collect(Collectors.toList());
+
+
     }
     @Override
     public  List<Customer> getTop5ByName(){
