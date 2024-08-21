@@ -36,6 +36,11 @@ public class ProductController {
         return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
 
     }
+    @GetMapping("/findByType/{type}")
+    public ResponseEntity<List<ProductDTO>> findByType(@PathVariable("type") String type){
+        return new ResponseEntity<>(productService.findByType(type),HttpStatus.OK);
+
+    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable("id") Long productId, @RequestBody Product updatedProduct) {

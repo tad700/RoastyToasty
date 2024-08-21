@@ -14,4 +14,6 @@ public interface ProductService {
     Product updateProduct(Long id, Product product);
 
     void deleteProduct(Long id);
+
+    List<ProductDTO> findByType(String type);
 }

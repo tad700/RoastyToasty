@@ -23,6 +23,7 @@ public class ProductServiceImpl implements ProductService {
         Product savedProduct = new Product(
                 product.getProductId(),
                 product.getName(),
+                product.getType(),
                 product.getDescription(),
                 product.getPrice(),
                 product.getCreatedAt()
@@ -45,6 +46,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Product not found with ID" + id));
         product.setName(updatedProduct.getName());
+        product.setType(updatedProduct.getType());
         product.setDescription(updatedProduct.getDescription());
         product.setPrice(updatedProduct.getPrice());
         product.setCreatedAt(updatedProduct.getCreatedAt());
@@ -57,5 +59,10 @@ public class ProductServiceImpl implements ProductService {
                 () -> new ResourceNotFoundException("Product is not found with id" + productId));
         productRepository.deleteById(productId);
 
+    }
+
+    @Override
+    public List<ProductDTO> findByType(String type) {
+        return productRepository.findByType(type).stream().map((product)->ProductMapper.mapProductToDTO(product)).toList();
     }
 }

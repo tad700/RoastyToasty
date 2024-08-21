@@ -18,6 +18,8 @@ public class Product {
 
     private String name;
 
+    private String type;
+
     private String description;
 
     private Double price;
